@@ -17,6 +17,10 @@ public class TimeSLList {
         }
     }
 
+    public static void main(String[] args) {
+        timeGetLast();
+    }
+
     public static void timeGetLast() {
         AList a = new AList();AList tim = new AList();AList ops = new AList();
         int[] lista={1000,2000,4000,8000,1600,3200,6400,12800};

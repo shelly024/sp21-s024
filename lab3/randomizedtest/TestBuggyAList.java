@@ -35,13 +35,11 @@ public class TestBuggyAList {
                 int randVal = StdRandom.uniform(0, 100);
                 L.addLast(randVal);
                 Broken.addLast(randVal);
-                System.out.println("addLast(" + randVal + ")");
             } else if (operationNumber == 1) {
                 // size
                 int size = L.size();
                 int size1 = Broken.size();
                 assertEquals(size,size1);
-                System.out.println("size: " + size + size1);
             }
 
             if (L.size() >= 1 && Broken.size() >= 1){

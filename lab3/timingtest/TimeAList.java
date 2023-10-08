@@ -24,7 +24,7 @@ public class TimeAList {
     public static void timeAListConstruction() {
 
         AList a = new AList(); AList tme = new AList();
-        int[] lista={1000,2000,4000,8000,1600,3200,6400,12800};
+        int[] lista={1000,2000,4000,8000,16000,32000,64000,128000};
         for (int num=0;num < lista.length;num+=1){
             a.addLast(lista[num]);
             AList t = new AList();

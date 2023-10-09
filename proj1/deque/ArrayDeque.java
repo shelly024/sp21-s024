@@ -31,13 +31,6 @@ public class ArrayDeque<T> {
         }
         size = size + 1;
     }
-    public boolean isEmpty() {
-        if (size == 0) {
-            return true;
-        }else {
-            return false;
-        }
-    }
     public int size() {
         return size;
     }

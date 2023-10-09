@@ -38,12 +38,6 @@ public class LinkedListDeque<T> {
         s.next = sentinel.prev;
         size = size + 1;
     }
-    public boolean isEmpty() {
-        if(size == 0) {
-            return true;
-        }
-        return false;
-    }
     public int size() {
         return size;
     }

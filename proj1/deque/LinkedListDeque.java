@@ -80,7 +80,7 @@ public class LinkedListDeque<T> {
     }
     public T get(int index) {
         IntNode p = sentinel;
-        if (index < size){
+        if (index < size && index >= 0){
             for(int i = 0;i <= index;i+=1){
                 p = p.next;
             }

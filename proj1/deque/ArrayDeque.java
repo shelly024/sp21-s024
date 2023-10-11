@@ -76,14 +76,17 @@ public class ArrayDeque<T> {
         return b;
     }
     public T get(int index) {
-        if (index > items.length - 1 || index < 0) {
+        if (index > size - 1 || index < 0) {
             return null;
         }
         int a;
-        if (i + index > items.length - 1) {
-            a = i + index - (items.length - 1);
-            return (items[a - 1]);
+        if (nextfirst == items.length - 1) {
+            return items[index];
         }
-        return (items[i + index]);
+        if (nextfirst + 1 + index > items.length - 1) {
+            a = nextfirst + 1 + index - (items.length - 1);
+            return items[a - 1];
+        }
+        return items[nextfirst + 1 + index];
     }
 }

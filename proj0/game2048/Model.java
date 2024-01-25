@@ -1,3 +1,4 @@
+
 package game2048;
 
 import java.util.Formatter;
@@ -106,20 +107,62 @@ public class Model extends Observable {
      *    value, then the leading two tiles in the direction of motion merge,
      *    and the trailing tile does not.
      * */
-    public boolean tilt(Side side) {
-        boolean changed;
-        changed = false;
+    public void mv(int a) {
+        for (int span = 0, r = board.size() - 1; validIndex(a, r); r = r - 1) {
+            if (board.tile(a, r) == null) {
+                span = span + 1;
+                continue;
+            } else {
+                board.move(a, r + span, board.tile(a, r));
+            }
+        }
+    }
+    public void Method1(int a) {
+        mv(a);
+        for (int r = board.size() - 2; validIndex(a, r); r = r - 1) {
+            if (board.tile(a, r) != null) {
+                if (board.tile(a, r + 1) != null) {
+                    if (board.tile(a, r + 1).value() == board.tile(a, r).value()) {
+                        int val = board.tile(a, r + 1).value();
+                        board.move(a, r + 1, board.tile(a, r));
+                        score = score + val * 2;
+                    }
+                }
+            }
+        }
+        mv(a);
+    }
 
+    public boolean tilt(Side side) {
+
+        if (side!=Side.NORTH){board.setViewingPerspective(side);}
+        boolean changed=false;
+        for (int r=0;r<=board.size()-2;r++) {
+            for (int c=0;validIndex(c,r);c++){
+                if (board.tile(c,r)!=null){
+                    changed=true;
+                }
+            }
+        }
+
+        for (int a=0,r= board.size()-1;validIndex(a,r);a=a+1){
+            Method1(a);
+        }
         // TODO: Modify this.board (and perhaps this.score) to account
         // for the tilt to the Side SIDE. If the board changed, set the
         // changed local variable to true.
-
+        if (side!=Side.NORTH){board.setViewingPerspective(Side.NORTH);}
         checkGameOver();
         if (changed) {
             setChanged();
         }
         return changed;
     }
+
+    public boolean validIndex(int c,int r){
+        if (c>=board.size() || r>= board.size()){
+            return false;}
+        else if (c<0 || r<0){return false;}return true;}
 
     /** Checks if the game is over and sets the gameOver variable
      *  appropriately.
@@ -138,8 +181,14 @@ public class Model extends Observable {
      * */
     public static boolean emptySpaceExists(Board b) {
         // TODO: Fill in this function.
-        return false;
-    }
+        for (int r=0;r<b.size();r=r+1){
+            for (int c=0;c<b.size();c=c+1) {
+                System.out.println(b.tile(c, r));
+                if (b.tile(c, r) == null) {
+                    return true;}
+            }
+        }
+        return false;}
 
     /**
      * Returns true if any tile is equal to the maximum valid value.
@@ -148,6 +197,15 @@ public class Model extends Observable {
      */
     public static boolean maxTileExists(Board b) {
         // TODO: Fill in this function.
+        for (int r=0;r<b.size();r=r+1){
+            for (int c=0;c<b.size();c=c+1){
+                if (b.tile(c,r) != null){
+                    Tile t=b.tile(c,r);
+                    int bx=t.value();
+                    if (bx == MAX_PIECE){return true;}
+                }
+            }
+        }
         return false;
     }
 
@@ -157,14 +215,35 @@ public class Model extends Observable {
      * 1. There is at least one empty space on the board.
      * 2. There are two adjacent tiles with the same value.
      */
+
     public static boolean atLeastOneMoveExists(Board b) {
         // TODO: Fill in this function.
+        for (int r=0;r<b.size();r=r+1){
+            for (int c=0;c<b.size();c=c+1){
+                if (b.tile(c,r) == null){
+                    return true;}
+                else {
+                    int f = b.tile(c,r).value();
+                    if (c-1 < b.size() && c-1 >=0){
+                        if (b.tile(c-1,r)!= null){
+                            if (f == b.tile(c-1,r).value()){return true;}}}
+                    if (c+1 < b.size() && c+1 >=0){
+                        if (b.tile(c+1,r)!= null){
+                            if (f == b.tile(c+1,r).value()){return true;}}}
+                    if (r-1 < b.size() && r-1 >=0){
+                        if (b.tile(c,r-1)!= null){
+                            if (f == b.tile(c,r-1).value()){return true;}}}
+                    if (r+1 < b.size() && r+1 >=0){
+                        if (b.tile(c,r+1)!= null){
+                            if (f == b.tile(c,r+1).value()){return true;}}}
+                }
+            }
+        }
         return false;
     }
 
-
     @Override
-     /** Returns the model as a string, used for debugging. */
+    /** Returns the model as a string, used for debugging. */
     public String toString() {
         Formatter out = new Formatter();
         out.format("%n[%n");

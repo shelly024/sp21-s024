@@ -21,12 +21,6 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
         sentinel.prev = sentinel;
         size=0;
     }
-    public LinkedListDeque(T x) {
-        sentinel = new IntNode(null,null,null);
-        sentinel.next = new IntNode(sentinel,x,sentinel);
-        sentinel.prev = sentinel.next;
-        size=1;
-    }
     @Override
     public void addFirst(T item) {
         size = size + 1;
@@ -151,7 +145,7 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
         }
         return false;
     }
-    public boolean contains(T x) {
+    private boolean contains(T x) {
         for (int i = 0; i < size; i += 1) {
             if (get(i).equals(x)) {
                 return true;

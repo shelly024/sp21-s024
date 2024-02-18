@@ -4,10 +4,10 @@ import java.util.LinkedList;
 
 public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
     private class IntNode {
-        public T item;
-        public IntNode prev;
-        public IntNode next;
-        public IntNode(IntNode p,T i,IntNode n){
+        private T item;
+        private IntNode prev;
+        private IntNode next;
+        private IntNode(IntNode p, T i, IntNode n) {
             prev = p;
             item = i;
             next = n;
@@ -16,30 +16,29 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
     private IntNode sentinel;
     private int size;
     public LinkedListDeque() {
-        sentinel=new IntNode(null,null,null);
+        sentinel = new IntNode(null, null, null);
         sentinel.next = sentinel;
         sentinel.prev = sentinel;
-        size=0;
+        size = 0;
     }
     @Override
     public void addFirst(T item) {
         size = size + 1;
-
         if (size == 1) {
-            IntNode first = new IntNode(sentinel,item,sentinel);
+            IntNode first = new IntNode(sentinel, item, sentinel);
             sentinel.next = first;
             sentinel.prev = first;
         } else {
             IntNode currentfirst = sentinel.next;
-            IntNode newfirst = new IntNode(sentinel,item,sentinel.next);
+            IntNode newfirst = new IntNode(sentinel, item, sentinel.next);
             sentinel.next = newfirst;
             currentfirst.prev = newfirst;
         }
     }
     @Override
     public void addLast(T item) {
-        IntNode s = sentinel.prev;//last
-        IntNode last = new IntNode(sentinel.prev,item,sentinel);
+        IntNode s = sentinel.prev;
+        IntNode last = new IntNode(sentinel.prev, item, sentinel);
         s.next = last;
         last.prev = s;
         last.next = sentinel;
@@ -52,13 +51,13 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
     }
     @Override
     public void printDeque() {
-        for(int i=0;i<=size-1;i+=1){
+        for (int i = 0; i <= size - 1; i += 1) {
             System.out.print(get(i) + " ");
         }
     }
     @Override
     public T removeFirst() {
-        if (size == 0){
+        if (size == 0) {
             return null;
         }
         IntNode x = sentinel.next;
@@ -67,12 +66,13 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
         sentinel.next = p;
         p.prev = sentinel;
         size = size - 1;
-        x.next = null;x.prev = null;
+        x.next = null;
+        x.prev = null;
         return a;
     }
     @Override
     public T removeLast() {
-        if (size == 0){
+        if (size == 0) {
             return null;
         }
         IntNode x = sentinel.prev;
@@ -81,36 +81,34 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
         sentinel.prev = p;
         sentinel.prev.next = sentinel;
         size = size - 1;
-        x.next = null;x.prev = null;
+        x.next = null;
+        x.prev = null;
         return a;
     }
     @Override
     public T get(int index) {
         IntNode p = sentinel;
-        if (index < size && index >= 0){
-            for(int i = 0;i <= index;i+=1){
+        if (index < size && index >= 0) {
+            for (int i = 0; i <= index; i += 1) {
                 p = p.next;
             }
-        }else {
+        } else {
             return null;
         }
         return p.item;
     }
-
+    private T helper1(IntNode p, int index) {
+        if (index == 0) {
+           return p.item;
+        }
+        p = p.next;
+        return helper1(p,index - 1);
+    }
     public T getRecursive(int index) {
-        //if (index == 0) {
-         //   return sentinel.next.item;
-        //}
-        //return getRecursive(index-1).next;//
-        IntNode p = sentinel.next;
-        if (index >= size || index <0) {
+        if (index >= size || index < 0) {
             return null;
         }
-        if (index > 0) {p = p.next;}
-        if (index == 0) {
-            return p.item;
-        }
-        return getRecursive(index - 1);
+        return helper1(sentinel.next,index);
     }
     public Iterator<T> iterator() {
         return new LListDequeIterator();

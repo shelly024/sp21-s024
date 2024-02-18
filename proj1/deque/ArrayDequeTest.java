@@ -64,4 +64,14 @@ public class ArrayDequeTest {
         assertEquals(null, lld3.get(8));
         assertEquals(null, lld3.get(-1));
     }
+    @Test
+    public void gettest4() {
+        ArrayDeque<Integer> lld4 = new ArrayDeque<Integer>();
+        lld4.addLast(5);
+        lld4.addFirst(3);
+        lld4.addLast(2);
+        lld4.addFirst(9);
+        lld4.removeFirst();
+        lld4.removeLast();
+    }
 }

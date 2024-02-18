@@ -2,6 +2,11 @@ package deque;
 import java.util.Comparator;
 public class MaxArrayDeque<T> extends ArrayDeque<T> {
     private int maxi;
+    private T[] items;
+    private int size;
+    private int i;
+    private int nextfirst;
+    private int nextlast;
     public MaxArrayDeque(Comparator<T> c) {
         items = (T[]) new Object[8];
         size = 0;
@@ -11,15 +16,19 @@ public class MaxArrayDeque<T> extends ArrayDeque<T> {
         nextlast = i + 1;
     }
     public T max() {
-        if (items == null) {return null;}
-        int maxa=0;
+        if (items == null) {
+            return null;
+        }
+        int maxa = 0;
         return items[maxi];
     }
     public T max(Comparator<T> c) {
-        if (items == null) {return null;}
-        int maxi=0;
-        for(int i=0;i<size;i += 1) {
-            int result = c.compare(items[i],items[maxi]);
+        if (items == null) {
+            return null;
+        }
+        int maxi = 0;
+        for(int i = 0; i < size; i += 1) {
+            int result = c.compare(items[i], items[maxi]);
             if (result > 0) {
                 maxi = i;
             }

@@ -129,7 +129,23 @@ public class LinkedListDequeTest {
         for (double i = 999999; i > 500000; i--) {
             assertEquals("Should have the same value", i, (double) lld1.removeLast(), 0.0);
         }
+    }
+    @Test
+    public void lltest() {
+        LinkedListDeque<Integer> a = new LinkedListDeque<>();
+        a.addFirst(0);
+        a.addFirst(1);
+        a.addLast(2);
+        a.removeFirst();
+        a.removeLast();
+        a.addLast(5);
+        a.addFirst(6);
+        a.addFirst(7);
+        a.removeLast();
+        a.addFirst(9);
+        a.addFirst(10);
+        a.getRecursive(1);
 
-
+        assertEquals("Should have the same value", 9, (double) a.getRecursive(1), 0.0);
     }
 }

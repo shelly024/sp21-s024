@@ -67,11 +67,33 @@ public class ArrayDequeTest {
     @Test
     public void gettest4() {
         ArrayDeque<Integer> lld4 = new ArrayDeque<Integer>();
-        lld4.addLast(5);
-        lld4.addFirst(3);
+        lld4.addFirst(0);
+        lld4.addLast(1);
         lld4.addLast(2);
-        lld4.addFirst(9);
+        lld4.addLast(3);
+        lld4.addLast(4);
+        int a = lld4.get(2);
+        lld4.addFirst(6);
+        int b = lld4.get(2);
+        lld4.addLast(8);
+        lld4.addLast(9);
         lld4.removeFirst();
         lld4.removeLast();
+        int c = lld4.get(4);
+        lld4.addLast(13);
+        lld4.removeLast();
+        lld4.addFirst(15);
+        lld4.addLast(16);
+        lld4.addLast(17);
+        int d = lld4.get(0);
+    }
+    @Test
+    public void gettest5() {
+        ArrayDeque<Integer> lld5 = new ArrayDeque<Integer>();
+        lld5.addFirst(0);
+        lld5.addLast(1);
+        lld5.addLast(2);
+        lld5.addLast(3);
+        lld5.addLast(4);
     }
 }

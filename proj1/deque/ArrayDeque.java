@@ -28,14 +28,14 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
             nextlast = nextfirst + 1 + size;
         }
         if (nextfirst == items.length - 1) {
-            System.arraycopy(items,0,x,0,size);
+            System.arraycopy(items, 0, x, 0, size);
             nextlast = size;
         }
         items = x;
     }
     @Override
     public void addFirst(T item) {
-        if ((size < items.length / 4) && (size == items.length)) {
+        if ((size < items.length / 4) || (size == items.length)) {
             resize(size * 2);
         }
         items[nextfirst] = item;
@@ -48,7 +48,7 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
     }
     @Override
     public void addLast(T item) {
-        if (size == 8) {
+        if ((size < items.length / 4) || (size == items.length)) {
             resize(size * 2);
         }
         items[nextlast] = item;
@@ -74,8 +74,8 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
         if (size == 0) {
             return null;
         }
-        if ((size < items.length / 4) && (size == items.length - 1)) {
-            resize((int)(size * 2));
+        if ((size < items.length / 4) || (size == items.length)) {
+            resize(size * 2);
         }
         if (nextfirst == items.length - 1) {
             T a = items[0];
@@ -93,8 +93,8 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
         if (size == 0) {
             return null;
         }
-        if ((size < items.length / 4) && (size == items.length - 1)) {
-            resize((int)(size * 2));
+        if ((size < items.length / 4) || (size == items.length)) {
+            resize(size * 2);
         }
         if (nextlast == 0) {
             T b = items[items.length - 1];

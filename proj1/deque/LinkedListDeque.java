@@ -1,6 +1,5 @@
 package deque;
 import java.util.Iterator;
-import java.util.LinkedList;
 
 public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
     private class IntNode {
@@ -99,16 +98,16 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
     }
     private T helper1(IntNode p, int index) {
         if (index == 0) {
-           return p.item;
+            return p.item;
         }
         p = p.next;
-        return helper1(p,index - 1);
+        return helper1(p, index - 1);
     }
     public T getRecursive(int index) {
         if (index >= size || index < 0) {
             return null;
         }
-        return helper1(sentinel.next,index);
+        return helper1(sentinel.next, index);
     }
     public Iterator<T> iterator() {
         return new LListDequeIterator();

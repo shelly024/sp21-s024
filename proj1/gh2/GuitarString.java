@@ -34,7 +34,7 @@ public class GuitarString {
             double r = Math.random() - 0.5;
             buffer.addFirst(r);
         }
-     }
+    }
     /* Advance the simulation one time step by performing one iteration of
      * the Karplus-Strong algorithm.
      */

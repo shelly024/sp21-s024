@@ -26,8 +26,8 @@ public class MaxArrayDeque<T> extends ArrayDeque<T> {
         if (items == null) {
             return null;
         }
-        int maxi = 0;
-        for(int i = 0; i < size; i += 1) {
+        maxi = 0;
+        for (i = 0; i < size; i += 1) {
             int result = c.compare(items[i], items[maxi]);
             if (result > 0) {
                 maxi = i;

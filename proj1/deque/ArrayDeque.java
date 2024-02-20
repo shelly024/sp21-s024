@@ -19,51 +19,45 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
         T[] x = (T[]) new Object[capacity];
         int n;
         if (nextfirst < items.length - 1) {
-            for (n = nextfirst + 1; n < items.length; n += 1) {
-                x[n] = items[n];
-            }
-            for (n = items.length, i = 0; n < x.length && i <= nextfirst; n += 1, i += 1) {
+            for (n = 0, i = nextfirst + 1; i < items.length; n += 1, i += 1) {
                 x[n] = items[i];
             }
-            nextlast = nextfirst + 1 + size;
-        }
-        else if (nextfirst == items.length - 1) {
+            for (n = items.length, i = 0; i <= nextfirst; n += 1, i += 1) {
+                x[n] = items[i];
+            }
+        } else if (nextfirst == items.length - 1) {
             System.arraycopy(items, 0, x, 0, size);
-            nextlast = size;
         }
+        nextlast = size;
+        nextfirst = x.length - 1;
         items = x;
     }
     private void resmall(int capacity) {
         T[] a = (T[]) new Object[capacity];
         int f = 0;
-        if (nextfirst < a.length - 1) {
+        if (nextfirst < items.length - 1) {
             if (nextfirst < nextlast) {
                 for (i = nextfirst + 1, f = 0; f < size; f += 1, i += 1) {
                     a[f] = items[i];
                 }
-                nextfirst = a.length - 1;
-                nextlast = size;
-            }
-            else if (nextfirst > nextlast) {
+            } else if (nextfirst > nextlast) {
                 for (i = nextfirst + 1, f = 0; i < items.length; f += 1, i += 1) {
                     a[f] = items[i];
                 }
-                for (i = 0, f = items.length - 1 - nextfirst; f <= a.length; f += 1, i += 1) {
+                for (i = 0, f = items.length - 1 - nextfirst; i < nextlast; f += 1, i += 1) {
                     a[f] = items[i];
                 }
-                nextfirst = a.length - 1;
-                nextlast = size;
             }
-        }
-        else if (nextfirst == a.length - 1) {
+        } else if (nextfirst == items.length - 1) {
             System.arraycopy(items, 0, a, 0, size);
-            nextlast = size;
         }
+        nextfirst = a.length - 1;
+        nextlast = size;
         items = a;
     }
     @Override
     public void addFirst(T item) {
-        if (size >= 8 || size == items.length) {
+        if (size == items.length) {
             relarge(size * 2);
         }
         items[nextfirst] = item;
@@ -76,7 +70,7 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
     }
     @Override
     public void addLast(T item) {
-        if (size >= 8 || size == items.length) {
+        if (size == items.length) {
             relarge(size * 2);
         }
         items[nextlast] = item;

@@ -22,7 +22,7 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
             for (n = 0, i = nextfirst + 1; i < items.length; n += 1, i += 1) {
                 x[n] = items[i];
             }
-            for (n = items.length, i = 0; i <= nextfirst; n += 1, i += 1) {
+            for (n = items.length - (nextfirst + 1), i = 0; i <= nextfirst; n += 1, i += 1) {
                 x[n] = items[i];
             }
         } else if (nextfirst == items.length - 1) {

@@ -128,10 +128,24 @@ public class ArrayDequeTest {
     @Test
     public void gettest5() {
         ArrayDeque<Integer> lld5 = new ArrayDeque<Integer>();
-        lld5.addFirst(0);
-        lld5.addLast(1);
-        lld5.addLast(2);
-        lld5.addLast(3);
-        lld5.addLast(4);
+        lld5.addLast(0);
+        lld5.removeLast();
+        lld5.addFirst(2);
+        lld5.removeFirst();
+        lld5.addFirst(4);
+        lld5.addLast(5);
+        lld5.get(0);
+        lld5.removeFirst();
+        lld5.get(0);
+        lld5.removeFirst();
+        lld5.addLast(10);
+        lld5.removeFirst();
+        lld5.addLast(12);
+        lld5.get(0);
+        lld5.removeFirst();
+        lld5.addLast(15);
+        lld5.addLast(16);
+        lld5.addFirst(17);
+        lld5.removeLast();
     }
 }

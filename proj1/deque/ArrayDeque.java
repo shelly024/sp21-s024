@@ -163,24 +163,55 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
         }
     }
     public boolean equals(Object o) {
+        int n;
         if (o instanceof ArrayDeque) {
             ArrayDeque array = (ArrayDeque) o;
             if (array.size != this.size) {
                 return false;
             }
-            for (T x : this) {
-                if (!array.contains(x)) {
-                    return false;
+            if (nextfirst == items.length - 1) {
+                for (n = 0; n < size; n += 1) {
+                    if (!array.contains(items[n])) {
+                        return false;
+                    }
                 }
+                return true;
             }
-            return true;
+            else {
+                for (n = nextfirst + 1; n < items.length; n += 1) {
+                    if (!array.contains(this.items[n])) {
+                        return false;
+                    }
+                }
+                for (n = 0; n < nextlast; n += 1) {
+                    if (!array.contains(this.items[n])) {
+                        return false;
+                    }
+                }
+                return true;
+            }
         }
         return false;
     }
     private boolean contains(T x) {
-        for (int m = 0; m < size; m += 1) {
-            if (items[m].equals(x)) {
-                return true;
+        int m;
+        if (nextfirst == items.length - 1) {
+            for (m = 0; m < size; m += 1) {
+                if (items[m].equals(x)) {
+                    return true;
+                }
+            }
+        }
+        else {
+            for (m = nextfirst + 1; m < items.length; m += 1) {
+                if (items[m].equals(x)) {
+                    return true;
+                }
+            }
+            for (m = 0; m < nextlast; m += 1) {
+                if (items[m].equals(x)) {
+                    return true;
+                }
             }
         }
         return false;

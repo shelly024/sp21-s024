@@ -1,38 +1,36 @@
 package deque;
 import java.util.Comparator;
+import java.util.ArrayDeque;
 public class MaxArrayDeque<T> extends ArrayDeque<T> {
     private int maxi;
-    private T[] items;
-    private int size;
-    private int i;
-    private int nextfirst;
-    private int nextlast;
+    private Comparator<T> comparator;
     public MaxArrayDeque(Comparator<T> c) {
-        items = (T[]) new Object[8];
-        size = 0;
-        maxi = 0;
-        i = 3;
-        nextfirst = i;
-        nextlast = i + 1;
+        super();
+        comparator = c;
     }
     public T max() {
-        if (items == null) {
-            return null;
-        }
-        int maxa = 0;
-        return items[maxi];
-    }
-    public T max(Comparator<T> c) {
-        if (items == null) {
+        if (isEmpty()) {
             return null;
         }
         maxi = 0;
-        for (i = 0; i < size; i += 1) {
-            int result = c.compare(items[i], items[maxi]);
-            if (result > 0) {
-                maxi = i;
+        T max = getFirst();
+        for (T x : this) {
+            if (comparator.compare(x,max) > 0) {
+                max = x;
             }
         }
-        return items[maxi];
+        return max;
+    }
+    public T max(Comparator<T> c) {
+        if (isEmpty()) {
+            return null;
+        }
+        T max = getFirst();
+        for (T element : this) {
+            if (c.compare(element, max) > 0) {
+                max = element;
+            }
+        }
+        return max;
     }
 }

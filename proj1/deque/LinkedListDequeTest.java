@@ -144,7 +144,11 @@ public class LinkedListDequeTest {
         a.removeLast();
         a.addFirst(9);
         a.addFirst(10);
+        a.getRecursive(0);
         a.getRecursive(1);
+        a.getRecursive(2);
+        a.getRecursive(3);
+        a.getRecursive(4);
 
         assertEquals("Should have the same value", 9, (double) a.getRecursive(1), 0.0);
     }

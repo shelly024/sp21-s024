@@ -168,7 +168,7 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
             if (array.size != this.size) {
                 return false;
             }
-            for (T x : this.items) {
+            for (T x : this) {
                 if (!array.contains(x)) {
                     return false;
                 }

@@ -148,4 +148,25 @@ public class ArrayDequeTest {
         lld5.addFirst(17);
         lld5.removeLast();
     }
+    @Test
+    public void gettest6() {
+        ArrayDeque<Integer> a = new ArrayDeque<Integer>();
+        a.addFirst(0);
+        a.addFirst(1);
+        a.addLast(2);
+        a.removeFirst();
+        a.removeLast();
+        a.addLast(5);
+        a.addFirst(6);
+        a.addFirst(7);
+        a.removeLast();
+        a.addFirst(9);
+        a.addFirst(10);
+        a.get(0);
+        a.get(1);
+        a.get(2);
+        a.get(3);
+        a.get(4);
+        assertEquals("Should have the same value", 9, (double) a.get(1), 0.0);
+    }
 }

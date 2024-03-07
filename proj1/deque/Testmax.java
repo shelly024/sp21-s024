@@ -33,7 +33,7 @@ public class Testmax {
     @Test
     public void test3() {
         ArrayDeque<Integer> arrayDeque = new ArrayDeque<>();
-        arrayDeque.addLast(1);
+        arrayDeque.addLast(2);
         arrayDeque.addLast(2);
         arrayDeque.addLast(4);
         arrayDeque.removeLast();

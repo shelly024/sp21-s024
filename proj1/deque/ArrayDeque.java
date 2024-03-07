@@ -199,7 +199,7 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
             for (i = 0; i < size; i += 1) {
                 T x = this.get(i);
                 T y = (T) array.get(i);
-                if (x != y) {
+                if (!x.equals(y)) {
                     return false;
                 }
             }

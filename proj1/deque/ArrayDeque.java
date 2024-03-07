@@ -8,6 +8,7 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
     private int i;
     private int nextfirst;
     private int nextlast;
+
     public ArrayDeque() {
         items = (T[]) new Object[8];
         size = 0;
@@ -15,6 +16,7 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
         nextfirst = i;
         nextlast = i + 1;
     }
+
     private void relarge(int capacity) {
         T[] x = (T[]) new Object[capacity];
         int n;
@@ -32,6 +34,7 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
         nextfirst = x.length - 1;
         items = x;
     }
+
     private void resmall(int capacity) {
         T[] a = (T[]) new Object[capacity];
         int f = 0;
@@ -55,6 +58,7 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
         nextlast = size;
         items = a;
     }
+
     @Override
     public void addFirst(T item) {
         if (size == items.length) {
@@ -68,6 +72,7 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
         }
         size = size + 1;
     }
+
     @Override
     public void addLast(T item) {
         if (size == items.length) {
@@ -81,16 +86,19 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
         }
         size = size + 1;
     }
+
     @Override
     public int size() {
         return size;
     }
+
     @Override
     public void printDeque() {
         for (int n = 0; n < size; n += 1) {
             System.out.print(items[n] + " ");
         }
     }
+
     @Override
     public T removeFirst() {
         if (size == 0) {
@@ -110,6 +118,7 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
         size = size - 1;
         return a;
     }
+
     @Override
     public T removeLast() {
         if (size == 0) {
@@ -129,6 +138,7 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
         size = size - 1;
         return b;
     }
+
     @Override
     public T get(int index) {
         if (index > size - 1 || index < 0) {
@@ -148,70 +158,60 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
     public Iterator<T> iterator() {
         return new ArayDequeIterator();
     }
+
     private class ArayDequeIterator implements Iterator<T> {
         int in = 0;
+        int m = nextfirst + 1;
+        T a;
+
         @Override
         public boolean hasNext() {
-            return in < size;
+            return in != nextlast && m != nextlast;
         }
 
         @Override
         public T next() {
-            T a = get(in);
-            in += 1;
+            if (nextfirst == items.length - 1) {
+                a = items[in];
+                in += 1;
+            }
+            else if (nextfirst < nextlast) {
+                a = items[m];
+                m += 1;
+            }
+            else if (nextfirst >= nextlast) {
+                if (m < items.length) {
+                    a = items[m];
+                    m += 1;
+                } else {
+                    a = items[in];
+                    in += 1;
+                }
+            }
             return a;
         }
     }
+
     public boolean equals(Object o) {
-        int n;
         if (o instanceof ArrayDeque) {
             ArrayDeque array = (ArrayDeque) o;
             if (array.size != this.size) {
                 return false;
             }
-            if (nextfirst == items.length - 1) {
-                for (n = 0; n < size; n += 1) {
-                    if (!array.contains(items[n])) {
-                        return false;
-                    }
+            for (T element : this) {
+                if (!array.contains(element)) {
+                    return false;
                 }
-                return true;
             }
-            else {
-                for (n = nextfirst + 1; n < items.length; n += 1) {
-                    if (!array.contains(this.items[n])) {
-                        return false;
-                    }
-                }
-                for (n = 0; n < nextlast; n += 1) {
-                    if (!array.contains(this.items[n])) {
-                        return false;
-                    }
-                }
-                return true;
-            }
+            return true;
         }
         return false;
     }
+
     private boolean contains(T x) {
-        int m;
-        if (nextfirst == items.length - 1) {
-            for (m = 0; m < size; m += 1) {
-                if (items[m].equals(x)) {
-                    return true;
-                }
-            }
-        }
-        else {
-            for (m = nextfirst + 1; m < items.length; m += 1) {
-                if (items[m].equals(x)) {
-                    return true;
-                }
-            }
-            for (m = 0; m < nextlast; m += 1) {
-                if (items[m].equals(x)) {
-                    return true;
-                }
+        for (T element : this) {
+            if (element.equals(x)) {
+                return true;
             }
         }
         return false;

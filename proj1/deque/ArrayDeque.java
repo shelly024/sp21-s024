@@ -174,12 +174,10 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
             if (nextfirst == items.length - 1) {
                 a = items[in];
                 in += 1;
-            }
-            else if (nextfirst < nextlast) {
+            } else if (nextfirst < nextlast) {
                 a = items[m];
                 m += 1;
-            }
-            else if (nextfirst >= nextlast) {
+            } else if (nextfirst >= nextlast) {
                 if (m < items.length) {
                     a = items[m];
                     m += 1;
@@ -193,26 +191,19 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
     }
 
     public boolean equals(Object o) {
-        if (o instanceof ArrayDeque) {
-            ArrayDeque array = (ArrayDeque) o;
-            if (array.size != this.size) {
+        if (o instanceof Deque) {
+            Deque array = (Deque) o;
+            if (array.size() != this.size) {
                 return false;
             }
-            for (T element : this) {
-                if (!array.contains(element)) {
+            for (i = 0; i < size; i += 1) {
+                T x = this.get(i);
+                T y = (T) array.get(i);
+                if (x != y) {
                     return false;
                 }
             }
             return true;
-        }
-        return false;
-    }
-
-    private boolean contains(T x) {
-        for (T element : this) {
-            if (element.equals(x)) {
-                return true;
-            }
         }
         return false;
     }
